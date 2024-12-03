@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+
+{% load static %}
+
+<div class="row"> <!--La fila-->
+    
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"> <!-- Columna Izquierda-->
+        <center><h1>Medicamento</h1>
+
+        <div class="card"> <!-- La tarjeta -->
+            <div class="card-body">
+                <form action="registrarMedicamento/" method="POST"> {% csrf_token %} <!-- Falta action -->
+                    <div class="form-group py-2">
+                        <input type="text" id="numidproducto" name="numidproducto" class="form-control" placeholder="ID Medicamento" minlength="1" maxlength="6" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="ID del paciente recetado" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txtmarca" name="txtmarca" class="form-control" placeholder="ID del medico que recetó" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txttipo" name="txttipo" class="form-control" placeholder="Descripción del medicamento" maxlength="10" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="date" id="numvolumen" name="numvolumen" class="form-control" placeholder="Fecha de incio de consumo" maxlength="50" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="date" id="numprecio" name="numprecio" class="form-control" placeholder="Fecha de finalización o siguiente dosis" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txtnotas" name="txtnotas" class="form-control" placeholder="Costo" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                    <center><button type="submit" class="btn btn-dark">Ingresar medicamento al Hospital</button></center>
+                    </div>
+                </form>
+            </div>
+        </div> <!-- La tarjeta -->
+
+    </div> <!-- Columna Izquierda-->
+
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8"> <!-- Columna derecha -->
+        <center><h1>Medicamento</h1>
+        
+
+        <!-- La tabla -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID del medicamento</th>
+                    <th scope="col">ID del paciente</th>
+                    <th scope="col">ID del medico</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Fecha de inicio de consumo</th>
+                    <th scope="col">Fecha siguiente dosis o terminación</th>
+                    <th scope="col">Costo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in misproductos %}
+                    <tr>
+                        <td> {{m.id_producto}} </td>
+                        <td> {{m.nombre}} </td>
+                        <td> {{m.marca}} </td>
+                        <td> {{m.tipo}} </td>
+                        <td> {{m.volumen}} </td>
+                        <td> {{m.precio}} </td>
+                        <td> ${{m.notas_olfativas}} </td>
+                        <td><a href="seleccionarMedicamento/{{m.id_producto}}" class="btn btn-secondary">Editar</a></td> <!-- Falta -->
+                        <td><a href="borrarMedicamento/{{m.id_producto}}" class="btn btn-dark">Borrar</a></td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    <!-- La tabla -->
+    </div> <!-- Columna derecha -->
+
+</div> <!--La fila-->
+{% endblock %}

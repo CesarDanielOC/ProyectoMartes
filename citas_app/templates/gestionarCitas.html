@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+
+{% load static %}
+    
+<div class="row">
+    
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        <center><h1>Agendar Citas</h1></center>
+        <div class="card">
+            <div class="card-body">
+                <form action="registrarCitas/" method="POST"> {% csrf_token %}
+                    <div class="form-group py-2">
+                        <input type="text" id="numidpromocion" name="numidpromocion" class="form-control" placeholder="ID de la cita" minlength="1" maxlength="6" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txtdescripcion" name="txtdescripcion" class="form-control" placeholder= "ID del paciente agendado" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txtfechainicio" name="txtfechainicio" class="form-control" placeholder="ID del medico" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="date" id="txtfechafin" name="txtfechafin" class="form-control" placeholder="Fecha de la cita" maxlength="10" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="time" id="numdescuento" name="numdescuento" class="form-control" placeholder="Hora de la cita" maxlength="50" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="numproductosaplicados" name="numproductosaplicados" class="form-control" placeholder="Motivo de la cita" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txtcondiciones" name="txtcondiciones" class="form-control" placeholder="Estado" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <center><button type="submit" class="btn btn-dark">Agendar cita</button></center>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div> 
+
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8"> <!-- Columna derecha -->
+        <center><h1>Citas agendadas</h1></center>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID de la cita</th>
+                    <th scope="col">ID del paciente</th>
+                    <th scope="col">ID del medico</th>
+                    <th scope="col">Fecha de la cita</th>
+                    <th scope="col">Hora de la cita</th>
+                    <th scope="col">Motivo de la cita</th>
+                    <th scope="col">Estado de la cita</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in mispromocion %}
+                    <tr>
+                        <td> {{m.id_promocion}} </td>
+                        <td> {{m.descripcion}} </td>
+                        <td> {{m.fecha_inicio}} </td>
+                        <td> {{m.fecha_fin}} </td>
+                        <td> {{m.descuento}} </td>
+                        <td> {{m.productos_aplicados}} </td>
+                        <td> {{m.condiciones}} </td>
+                        <td><a href="{% url 'seleccionarCitas' m.id_promocion %}" class="btn btn-secondary">Editar</a></td>
+                        <td><a href="{% url 'borrarCitas' m.id_promocion %}" class="btn btn-dark">Borrar</a></td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> 
+
+</div>
+{% endblock %}

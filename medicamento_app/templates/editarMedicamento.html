@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+
+<div class="row"> <!-- Fila en editar-->
+    <div class="col-md-4 offset-md-4">
+        <center><h2>Editar Medicamento</h2></center>
+
+        <div class="card"> <!-- La tarjeta -->
+            <div class="card-body">
+                <form action="/editarMedicamento/" method="POST"> {% csrf_token %} 
+                    <div class="form-group py-2">
+                        <input type="text" id="numidproducto" name="numidproducto" class="form-control" value="{{misproductos.id_producto}}" minlength="1" maxlength="6" readonly required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" value="{{misproductos.nombre}}" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txtmarca" name="txtmarca" class="form-control" value="{{misproductos.marca}}" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txttipo" name="txttipo" class="form-control" value="{{misproductos.tipo}}" maxlength="10" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="date" id="numvolumen" name="numvolumen" class="form-control" value="{{misproductos.volumen}}" minlength="1" maxlength="50" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="date" id="numprecio" name="numprecio" class="form-control" value="{{misproductos.precio}}" minlength="1" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txtnotas" name="txtnotas" class="form-control" value="${{misproductos.notas_olfativas}}" maxlength="100" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <center><button type="submit" class="btn btn-dark">Editar medicamento del Hospital</button></center>
+                    </div>
+                </form>
+            </div>
+        </div> <!-- La tarjeta -->
+
+        <!-- Aquí codigo tarjeta -->
+    </div> 
+</div> <!-- Fila en editar-->
+
+{% endblock %}
