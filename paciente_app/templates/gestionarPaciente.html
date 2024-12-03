@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+
+<div class="row"> 
+    
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"> 
+        <center><h1>Paciente</h1>
+
+        <div class="card"> 
+            <div class="card-body">
+                <form action="registrarPaciente/" method="POST"> {% csrf_token %} 
+                    <div class="form-group py-2">
+                        <input type="text" id="numidpaciente" name="numidpaciente" class="form-control" placeholder="ID del paciente" minlength="1" maxlength="6" required>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="Nombre del paciente" maxlength="100" required>  
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txtapellidos" name="txtapellidos" class="form-control" placeholder="Apellidos del paciente" maxlength="100" required>  
+                    </div>
+
+                    <div class="form-group py-2">
+                        <input type="text" id="txttelefono" name="txttelefono" class="form-control" placeholder="Telefono del paciente" maxlength="10" required> 
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <input type="date" id="txtfechan" name="txtfechan" class="form-control" maxlength="100" required>  
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <input type="date" id="txtfechar" name="txtfechar" class="form-control" required>  
+                    </div>
+                    
+                    <div class="form-group py-2">
+                        <input type="text" id="txtdireccion" name="txtdireccion" class="form-control"  placeholder="Direccion del Paciente" required> 
+                    </div>
+                    
+                    <div class="form-group py-2">
+                    <center><button type="submit" class="btn btn-dark">Ingresar Paciente al Hospital</button></center>
+                    </div>
+                
+                </form>
+            </div>
+        </div> 
+
+    </div> 
+
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8"> 
+        <center><h1>Pacientes</h1>
+        
+
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Fecha de nacimiento</th>
+                    <th scope="col">Fecha de registro</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in mispacientes %}
+                    <tr>
+                        <td> {{p.id_paciente}} </td>
+                        <td> {{p.nombre}} </td> 
+                        <td> {{p.apellidos}} </td>  
+                        <td> {{p.telefono}} </td>
+                        <td> {{ p.fechanacimiento}}</td> 
+                        <td> {{p.fecharegistro}} </td>  
+                        <td> {{p.direccion}} </td>  
+                        <td><a href="seleccionarPaciente/{{p.id_paciente}}" class="btn btn-secondary">Editar</a></td>
+                        <td><a href="borrarPaciente/{{p.id_paciente}}" class="btn btn-dark">Borrar</a></td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> 
+
+</div>
+{% endblock %}
