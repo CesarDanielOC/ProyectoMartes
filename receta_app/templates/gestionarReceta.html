@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+    
+{% load static %}
+
+<div class="row"> 
+    
+    <div class="col-sm-8 col-md-4 col-lg-4 col-xl-4"> 
+        <center><h1>Receta</h1>
+
+        <div class="card"> 
+            <div class="card-body">
+                <form action="registrarReceta/" method="POST"> {% csrf_token %}  
+                    <div class="form-group py-2">
+                        <input type="text" id="numidpedido" name="numidpedido" class="form-control" placeholder="ID de la receta" minlength="1" maxlength="6" required>
+                    </div>
+                
+                    <div class="form-group py-2">
+                        <input type="text" id="numidcliente" name="numidcliente" class="form-control" placeholder="ID del medico" maxlength="100" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <input type="text" id="txttotalpedido" name="txttotalpedido" class="form-control" placeholder="ID de la receta" maxlength="10" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <input type="text" id="txtfechareceta" name="txtfechareceta" class="form-control" placeholder="Instrucciones de la receta" maxlength="100" required>
+                    </div>
+                
+                    
+                
+                    <div class="form-group py-2">
+                        <input type="date" id="txtestadopedido" name="txtestadopedido" class="form-control" required>
+                    </div>
+                
+                    <div class="form-group py-2">
+                        <input type="text" id="txtmetodopago" name="txtmetodopago" class="form-control" placeholder="Doctor que valido la receta" maxlength="100" required>
+                    </div>
+                
+                    <div class="form-group py-2">
+                        <input type="text" id="txtdireccionenvio" name="txtdireccionenvio" class="form-control" placeholder="ID del/los medicamentos" maxlength="100" required>
+                    </div>
+                
+                    <div class="form-group py-2">
+                        <center><button type="submit" class="btn btn-dark">Recetar Paciente</button></center>
+                    </div>
+                </form>
+                
+            </div>
+        </div> 
+
+    </div> 
+
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+        <center><h1>Receta</h1>
+        
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">ID del Medico</th>
+                    <th scope="col">ID de la receta</th>
+                    <th scope="col">Instrucciones</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Doctor que valido la receta</th>
+                    <th scope="col">ID de medicamentos</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in mispedidos %}
+                    <tr>
+                        <td> {{m.id_pedido}} </td>
+                        <td> {{m.id_cliente}} </td>
+                        <td> {{m.total_pedido}} </td>
+                        <td> {{m.fecha_receta}} </td>
+                        <td> {{m.estado_pedido}} </td>
+                        <td> {{m.metodo_pago}} </td>
+                        <td> {{m.direccion_envio}} </td>
+                        <td><a href="seleccionarReceta/{{m.id_pedido}}" class="btn btn-secondary">Editar</a></td> <!-- Falta -->
+                        <td><a href="borrarReceta/{{m.id_pedido}}" class="btn btn-dark">Borrar</a></td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+
+</div> 
+{% endblock %}
